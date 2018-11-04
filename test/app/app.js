@@ -26,11 +26,16 @@ app.setHandler({
     },
 
     'HelloWorldIntent': function() {
-        this.tell('Hello World!');
+        // this.tell('https://www.google.com/');
+        this.googleAction().displayText('https://www.google.com/').tell("https://www.google.com/");
     },
+    "LocationsIntent": function(city,date) {
+        console.log("this is passed in"+JSON.stringify(city));
+        console.log("this is passed in"+JSON.stringify(date));
+        // console.log("this is passed in"+JSON.stringify(geoCity2));
 
-    'MyNameIsIntent': function(name) {
-        this.tell('Hey ' + name.value + ', nice to meet you!');
+        
+        this.tell('Hey '+city.value[0]+" to "+city.value[1]+" thats a nice place");
     },
 });
 

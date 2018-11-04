@@ -8,7 +8,7 @@ const {app} = require('./app/app.js');
 // =================================================================================
 
 if (app.isWebhook()) {
-    const port = process.env.PORT || 8080;
+    const port = process.env.PORT || 3000;
     Webhook.listen(port, () => {
         console.log(`Example server listening on port ${port}!`);
     });
