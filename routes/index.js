@@ -26,8 +26,9 @@ router.post('/results', function(req, res, next) {
   price.findPrice(req.body.fromLocation , req.body.toLocation )
         .then((resolve)=>{
            data = {
-            from: "Houston, TX",
-             to: "Seattle, WA",
+             route: resolve.route,
+            from: resolve.from,
+             to: resolve.to,
               price:  resolve.price,
                distance: resolve.duration,
                 stops: 1
