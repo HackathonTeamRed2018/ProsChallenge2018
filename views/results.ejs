@@ -29,19 +29,18 @@
                 <% if (results) { %>
                     <div class="card my-3" id="result-description">
                         <div class="card-body">
-                            <h3 class="card-title">Here is the Best Deal Found</h3>
+                            <h4 class="card-title">Here is the Best Deal Found</h4>
                             <p class="card-text">
                                 Here is what we found for your trip to <%= results.to %>.
                                 <br>
-                                Price: <%= results.price %>
+                                Price: $<%= results.price %>
                                 <br>
                                 Flights: <%= results.route.length - 1 %>
                             </p>
                         </div>
                     </div>
-                    <h4>Itinerary</h4>
                 <% } %>
-                <% for(let stop in results.route) { %>
+                <% for (let stop in results.route) { %>
                     <div class="card my-3" id="stop-number-<%= stop %>">
                         <div class="card-body">
                             <h5 class="card-title">Departure</h5>
