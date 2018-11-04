@@ -39,7 +39,30 @@ app.setHandler({
         // console.log("this is passed in"+JSON.stringify(geoCity2));
         price.findPrice(city.value[0] , city.value[1] )
         .then((resolve)=>{
-            this.tell('Hey it cost ' + resolve.price + ". duration is  " + resolve.duration + " thats a nice place");
+            let routes="";
+            for(let i=0;i<resolve.route.length;i++){
+                if(i!=resolve.route.length-1)
+                {
+                    routes+=resolve.route[i]+"->";
+                }else
+                {
+                    routes+=resolve.route[i];
+                }
+            }
+            let speech = this.speechBuilder()
+                .addText('The cheaptest flight is  $'+resolve.price+". ")
+                .addBreak('300ms')
+                .addText(" The route it took to get there is " + routes+". ")
+                .addBreak('300ms')
+                .addText("Total distance traveled is "+resolve.duration+". ")
+                .addBreak('300ms')
+                .addText("Would you like to go anywhere else?")
+                .addBreak('300ms')
+            // let speech ='The cheaptest flight is  $' +
+            //  resolve.price +".<break> the route it took to get there is " + routes 
+            //  + "<break>total distance traveled is "
+            // +resolve.duration+"<break>would you like to go anywhere else?" 
+            this.tell(speech);
         })
         .catch((err)=>{
             this.tell('there was an error thats a nice place='+err);
