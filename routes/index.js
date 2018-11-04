@@ -24,19 +24,19 @@ router.post('/results', function(req, res, next) {
 
   
   price.findPrice(req.body.fromLocation , req.body.toLocation )
-        .then((resolve)=>{
-           data = {
-             route: resolve.route,
-            from: resolve.from,
-             to: resolve.to,
+        .then((resolve)=> {
+            data = {
+              route: resolve.route,
+              from: resolve.from,
+              to: resolve.to,
               price:  resolve.price,
-               distance: resolve.duration,
-                stops: 1
-              };
-              res.redirect('/results');
+              distance: resolve.duration,
+              stops: 1
+            };
+            res.redirect('/results');
         })
         .catch((err)=>{
-            console.log('there was an error= '+err);
+            console.log('there was an error= ' + err);
             
         });
   // res.render('results', { title: "Search Results!", results: req.body })

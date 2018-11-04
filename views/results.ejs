@@ -16,6 +16,7 @@
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/results.css">
 </head>
 
 <body>
@@ -24,28 +25,38 @@
         <![endif]-->
     <div class="container">
         <div class="row">
-            <div class="col mx-auto">
-                <p>Results Go Here</p>
-                <%if(results){%>
-                <p>
-                    <%= results.price%>
-                </p>
-                <p>
-                    <%= results.distance%>
-                </p>
-                <p>
-                    <%= results.from%>
-                </p>
-                <p>
-                    <%= results.to%>
-                </p>
-
-                <%}%>
+            <div class="col-6-md mx-auto">
+                <% if (results) { %>
+                    <div class="card my-3" id="result-description">
+                        <div class="card-body">
+                            <h3 class="card-title">Here is the Best Deal Found</h3>
+                            <p class="card-text">
+                                Here is what we found for your trip to <%= results.to %>.
+                                <br>
+                                Price: <%= results.price %>
+                                <br>
+                                Flights: <%= results.route.length - 1 %>
+                            </p>
+                        </div>
+                    </div>
+                    <h4>Itinerary</h4>
+                <% } %>
+                <% for(let stop in results.route) { %>
+                    <div class="card my-3" id="stop-number-<%= stop %>">
+                        <div class="card-body">
+                            <h5 class="card-title">Departure</h5>
+                            <h6 class="card-text">
+                                <ul>
+                                    <li>City: <%= results.route[stop] %></li>
+                                </ul>
+                            </h6>
+                        </div>
+                    </div>
+                <% } %>
             </div>
-            <div class="col mx-auto">
-                <p>Map Goes Here</p>
-                <div id="googleMap" style="width:100%;height:400px;"></div>
-
+            <div class="col-md-6 mx-auto">
+                <div class="my-3 position-sticky" id="googleMap" style="width:100%;height:400px;">
+                </div>
                 <script>
                     var poly, map;
                     function initMap() {
