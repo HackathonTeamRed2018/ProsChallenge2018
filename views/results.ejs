@@ -21,6 +21,13 @@
             <div class="row">
                 <div class="col mx-auto">
                     <p>Results Go Here</p>
+                    <%if(results){%>
+                    <p><%= results.price%></p>
+                    <p><%= results.distance%></p>
+                    <p><%= results.from%></p>
+                    <p><%= results.to%></p>
+             
+                    <%}%>
                 </div>
                 <div class="col mx-auto">
                     <p>Map Goes Here</p>
