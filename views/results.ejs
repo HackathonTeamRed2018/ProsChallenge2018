@@ -27,6 +27,7 @@
         <div class="row">
             <div class="col-6-md mx-auto">
                 <% if (results) { %>
+<<<<<<< HEAD
                     <div class="card my-3" id="result-description">
                         <div class="card-body">
                             <h4 class="card-title">Here is the Best Deal Found</h4>
@@ -50,7 +51,38 @@
                                 </ul>
                             </h6>
                         </div>
+=======
+                <div class="card my-3" id="result-description">
+                    <div class="card-body">
+                        <h3 class="card-title">Here is the Best Deal Found</h3>
+                        <p class="card-text">
+                            Here is what we found for your trip to
+                            <%= results.to %>.
+                            <br>
+                            Price:
+                            <%= results.price %>
+                            <br>
+                            Flights:
+                            <%= results.route.length - 1 %>
+                        </p>
                     </div>
+                </div>
+                <h4>Itinerary</h4>
+                <% } %>
+                <% for(let stop in results.route) { %>
+                <div class="card my-3" id="stop-number-<%= stop %>">
+                    <div class="card-body">
+                        <h5 class="card-title">Departure</h5>
+                        <h6 class="card-text">
+                            <ul>
+                                <li>City:
+                                    <%= results.route[stop] %>
+                                </li>
+                            </ul>
+                        </h6>
+>>>>>>> 080b38779237b3dea4cae217b924c8928d3249c5
+                    </div>
+                </div>
                 <% } %>
             </div>
             <div class="col-md-6 mx-auto">
@@ -58,12 +90,16 @@
                 </div>
                 <script>
                     var poly, map;
+
                     function initMap() {
                         var directionsService = new google.maps.DirectionsService;
                         var directionsDisplay = new google.maps.DirectionsRenderer;
                         map = new google.maps.Map(document.getElementById('googleMap'), {
                             zoom: 8,
-                            center: { lat: -34.397, lng: 150.644 }
+                            center: {
+                                lat: -34.397,
+                                lng: 150.644
+                            }
                         });
                         directionsDisplay.setMap(map);
 
@@ -104,7 +140,9 @@
                     function getLatLng(location, bounds) {
                         return new Promise((resolve, reject) => {
                             var geocoder = new google.maps.Geocoder();
-                            geocoder.geocode({ 'address': location }, function (results, status) {
+                            geocoder.geocode({
+                                'address': location
+                            }, function (results, status) {
                                 if (status === 'OK') {
                                     console.log("Return loc: " + results[0].geometry.location);
                                     map.setCenter(results[0].geometry.location);
@@ -112,7 +150,8 @@
                                     addLatLng(results[0].geometry.location);
                                     resolve(results[0].geometry.location);
                                 } else {
-                                    console.log('Geocode was not successful for the following reason: ' + status);
+                                    console.log('Geocode was not successful for the following reason: ' +
+                                        status);
                                     reject("err");
                                 }
                             });
@@ -124,52 +163,69 @@
                         var waypts = [];
                         let stops = [];
                         <%for (let i = 0; i < results.route.length; i++) {%>
-                            stops.push('<%=results.route[i] %>');
+                        stops.push('<%=results.route[i] %>');
                         <%}%>
 
-                        addStop(stops, bounds).then((resolve)=>{
+                            const mapSeries = async (iterable, action) => {
+                                for (const x of iterable) {
+                                    await action(x,bounds);
+                                }
+                                map.fitBounds(bounds)
+                            }
+                            mapSeries(stops, getLatLng);
                             console.log("Bounds: " + bounds);
-                            map.fitBounds(bounds);
-                        }).catch((err) => { console.log(err); });
+
+                            ;
+                        
                     }
 
+
                     function addStop(stops, bounds) {
-                        return new Promise((resolve, reject) => {
-                            let promises = [];
-                            for (let i = 0; i < stops.length; i++) {
-                                promises.push(getLatLng(stops[i], bounds));
-                            }
-                            Promise.all(promises).then((res)=>{
-                                resolve(1);  
-                            }).catch((err) => { console.log(err); reject(err); });
+                        return new Promise((res, reject) => {
+                            // let promises = [];
+                            // for (let i = 0; i < stops.length; i++) {
+                            //     promises.push(getLatLng(stops[i], bounds));
+                            // }
+
+                            
+                            // Promise.all(promises).then((res) => {
+                            //     res(1)
+
+                            // }).catch((err) => {
+                            //     console.log(err);
+                            // })
+
                         });
                     }
 
+
                     function geocodeAddress(geocoder, resultsMap) {
                         var address;
-                            <%if (results) {%>
-                            address = '<%= results.from %>';
-                            <%} else {%>
-                            address = "houston";
-                            <%}%>
-                            geocoder.geocode({ 'address': address }, function (results, status) {
-                                if (status === 'OK') {
-                                    //resultsMap.setCenter(results[0].geometry.location);
-                                    var marker = new google.maps.Marker({
-                                        map: resultsMap,
-                                        position: results[0].geometry.location
-                                    });
-                                } else {
-                                    alert('Geocode was not successful for the following reason: ' + status);
-                                }
-                            });
+                        <%if (results) {%>
+                        address = '<%= results.from %>';
+                        <%} else {%>
+                        address = "houston";
+                        <%}%>
+                        geocoder.geocode({
+                            'address': address
+                        }, function (results, status) {
+                            if (status === 'OK') {
+                                //resultsMap.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: resultsMap,
+                                    position: results[0].geometry.location
+                                });
+                            } else {
+                                alert('Geocode was not successful for the following reason: ' + status);
+                            }
+                        });
                     }
 
                     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
                         var waypts = [];
                         let stops = [];
                         <%for (let i = 1; i < results.route.length - 1; i++) {%>
-                            stops.push('<%=results.route[i] %>');
+                        stops.push('<%=results.route[i] %>');
                         <%}%>
                         for (var i = 0; i < stops.length; i++) {
                             waypts.push({
@@ -180,14 +236,14 @@
 
                         var start, end;
                         <%if (results) {%>
-                            start = '<%= results.from %>';
-                            end = '<%= results.to %>';
+                        start = '<%= results.from %>';
+                        end = '<%= results.to %>';
                         <%} else {%>
-                            start = "houston";
-                            end = "dallas";
+                        start = "houston";
+                        end = "dallas";
                         <%}%>
 
-                            console.log("Start: " + start + " waypts: " + JSON.stringify(waypts, null, 2) + " End: " + end);
+                        console.log("Start: " + start + " waypts: " + JSON.stringify(waypts, null, 2) + " End: " + end);
 
                         directionsService.route({
                             origin: start,
