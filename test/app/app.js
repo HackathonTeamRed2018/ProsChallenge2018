@@ -3,7 +3,7 @@
 // =================================================================================
 // App Configuration
 // =================================================================================
-var price = require("/Users/micha/Desktop/projects/git/ProsChallenge2018/lib/priceGetter");
+var price = require("../lib/priceGetter");
 
 const {
     App
@@ -49,20 +49,13 @@ app.setHandler({
                     routes+=resolve.route[i];
                 }
             }
-            let speech = this.speechBuilder()
-                .addText('The cheaptest flight is  $'+resolve.price+". ")
-                .addBreak('300ms')
-                .addText(" The route it took to get there is " + routes+". ")
-                .addBreak('300ms')
-                .addText("Total distance traveled is "+resolve.duration+". ")
-                .addBreak('300ms')
-                .addText("Would you like to go anywhere else?")
-                .addBreak('300ms')
+
             // let speech ='The cheaptest flight is  $' +
             //  resolve.price +".<break> the route it took to get there is " + routes 
             //  + "<break>total distance traveled is "
             // +resolve.duration+"<break>would you like to go anywhere else?" 
-            this.tell(speech);
+            this.tell('The cheaptest flight is  $'+resolve.price+". The route it took to get there is " +
+            routes+".Would you like to go anywhere else?");
         })
         .catch((err)=>{
             this.tell('there was an error thats a nice place='+err);
