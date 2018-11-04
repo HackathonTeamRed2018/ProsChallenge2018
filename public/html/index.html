@@ -24,29 +24,29 @@
             </div>
             <div class="row">
                 <div class="col mx-auto">
-                    <form action="" method="POST">
+                    <form action="/results" method="POST">
                         <div class="form-row">
                             <div class="form-group col">
                                 <label style="color: white;" for="location-from">From</label>
-                                <input type="text" class="form-control form-control-lg" id="location-from" placeholder="Where are you starting from?"/>
+                                <input type="text" name="fromLocation" class="form-control form-control-lg" id="location-from" placeholder="Where are you starting from?"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col">
                                 <label style="color: white;" for="location-destination">To</label>
-                                <input type="text" class="form-control form-control-lg" id="location-destination" placeholder="Where would you like to go?"/>
+                                <input type="text" name="toLocation" class="form-control form-control-lg" id="location-destination" placeholder="Where would you like to go?"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col">
                                 <label style="color: white;" for="date-start">From Date</label>
-                                <input type="date" class="form-control form-control-lg" id="date-start"/>
+                                <input type="date" name="fromDate" class="form-control form-control-lg" id="date-start"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col">
                                 <label style="color: white;" for="date-end">To Date</label>
-                                <input type="date" class="form-control form-control-lg" id="date-end"/>
+                                <input type="date" name="toDatew" class="form-control form-control-lg" id="date-end"/>
                             </div>
                         </div>
                         <!--<div class="form-row">
