@@ -1,2 +1,4 @@
 # ProsChallenge2018
 ## by Oscar Tovar, Fabian Ornelas, Michael Panagos
+
+A nodejs flight fare webservice that takes in an origin location and a destination and two dates, and returns the most affordable route to take to arrive to the selected destination via flight. We used express to generate a web server with nodejs that create routes and sockets needed for the website. The webservice utilizes API's such as Kiwi for all flight information, Javascript Google Maps API for map manipulation and for displaying the route given by Kiwi with connections (stops needed). We used Jovo to create a host for voice recognition devices that uses the Nodejs program to retrieve and return the information to the device. Softwares that Jovo interacts consist of Actions on Google, Alexa devices, and Facebook chatbot. 
