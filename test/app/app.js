@@ -54,8 +54,8 @@ app.setHandler({
             //  resolve.price +".<break> the route it took to get there is " + routes 
             //  + "<break>total distance traveled is "
             // +resolve.duration+"<break>would you like to go anywhere else?" 
-            this.tell('The cheaptest flight is  $'+resolve.price+". The route it took to get there is " +
-            routes+".Would you like to go anywhere else?");
+            this.tell('The cheaptest flight is  $'+resolve.price+". The route it can take to get there is " +
+            routes+". The whole trip will take "+resolve.duration/3600 +" hours.");
         })
         .catch((err)=>{
             this.tell('there was an error thats a nice place='+err);
